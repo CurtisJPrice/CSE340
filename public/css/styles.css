@@ -4,123 +4,123 @@
     --font-title: "Playfair Display", serif;
     --primaryColor: #081753;
     --secondColor: #2c3e50;
-}
-
+  }
+  
   /******* Change Box Model ***************/
   *,
   *:before,
   *:after {
     box-sizing: border-box;
-}
-/*General styles*/
-body {
-    background-image: url("/public/images/site/small_check.jpg");
+  }
+  /*General styles*/
+  body {
+    background-image: url("/images/site/small_check.jpg");
     font-family: var(--font-body);
-}
-
-h1 {
+  }
+  
+  h1 {
     font-family: var(--font-title);
     color: var(--primaryColor);
-}
-/*End of general styles*/
-
-/*Header styles*/
-#top-header {
+  }
+  /*End of general styles*/
+  
+  /*Header styles*/
+  #top-header {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
     padding: 1rem;
     padding-bottom: 0;
-}
-
-.siteName {
+  }
+  
+  .siteName {
     display: flex;
     flex-direction: row;
     align-items: center;
-}
-
-.siteName img {
+  }
+  
+  .siteName img {
     width: 70px;
     height: 70px;
-}
-
-.title {
+  }
+  
+  .title {
     text-decoration: none;
     font-size: larger;
-}
-
-#tools a {
+  }
+  
+  #tools a {
     color: black;
     text-decoration: none;
     transition: transform 0.3s ease-in-out;
     display: inline-block;
-}
-
-#tools a:hover {
+  }
+  
+  #tools a:hover {
     transform: scale(1.2);
-}
-/*End of header styles*/
-
-/*Nav styles*/
-nav {
+  }
+  /*End of header styles*/
+  
+  /*Nav styles*/
+  nav {
     background-color: var(--secondColor);
     padding: 0rem;
     color: white;
-}
-
-nav ul {
+  }
+  
+  nav ul {
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
     justify-content: space-around;
     list-style: none;
     padding-left: 0;
-}
-
-nav ul li {
+  }
+  
+  nav ul li {
     cursor: pointer;
     transition: transform 0.3s ease-in-out;
     display: inline-block;
     padding: 1rem;
-}
-
-nav ul li:hover {
+  }
+  
+  nav ul li:hover {
     transform: scale(1.2);
     background-color: white;
     color: var(--primaryColor);
-}
-/*End of nav styles*/
-
-/*Body styles*/
-#wrapper {
+  }
+  /*End of nav styles*/
+  
+  /*Body styles*/
+  #wrapper {
     background-color: white;
     border: solid rgb(7, 167, 230) 5px;
     margin: 0rem 5rem 0rem 5rem;
     border-radius: 1rem;
-}
-
-main {
+  }
+  
+  main {
     padding: 1rem;
-}
-
-.spotcar {
+  }
+  
+  .spotcar {
     display: grid;
     grid-template-columns: 1rem, 1rem;
-}
-
-.carimg {
+  }
+  
+  .carimg {
     padding: 0 10rem 0 10rem;
     width: 100%;
     height: auto;
-}
-
-picture {
+  }
+  
+  picture {
     grid-column: 1/3;
     grid-row: 1/2;
-}
-
-.owntoday {
+  }
+  
+  .owntoday {
     grid-column: 1/2;
     grid-row: 1/2;
     margin: auto;
@@ -128,149 +128,149 @@ picture {
     padding: 1.5rem;
     color: var(--secondColor);
     font-size: larger;
-}
-
-.owntoday p,
-.owntoday h2 {
+  }
+  
+  .owntoday p,
+  .owntoday h2 {
     margin-top: 0;
     margin-bottom: 0;
-}
-
-.owntoday img {
+  }
+  
+  .owntoday img {
     margin-top: 20px;
     cursor: pointer;
     transition: transform 0.3s ease-in-out;
     display: inline-block;
-}
-
-.owntoday img:hover {
+  }
+  
+  .owntoday img:hover {
     transform: scale(1.1);
-}
-
-.upgradesAndReviews {
+  }
+  
+  .upgradesAndReviews {
     display: flex;
     flex-direction: row-reverse;
     justify-content: center;
     gap: 5rem;
     padding-top: 5rem;
-}
-
-.upgradesAndReviews h2 {
+  }
+  
+  .upgradesAndReviews h2 {
     font-size: xx-large;
-}
-
-.upgrades {
+  }
+  
+  .upgrades {
     display: grid;
     grid-template-columns: repeat(2, 10rem);
     grid-template-rows: repeat(2, 10rem);
-}
-
-.upgrades div {
+  }
+  
+  .upgrades div {
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     text-align: center;
-}
-
-.upgrades div img {
+  }
+  
+  .upgrades div img {
     background-color: #2c3e50;
     padding: 1rem 2rem 1rem 2rem;
-}
-
-.upgrades div .flame {
+  }
+  
+  .upgrades div .flame {
     padding-bottom: 0;
-}
-
-.reviews {
+  }
+  
+  .reviews {
     padding-left: 0;
-}
-
-.reviews li {
+  }
+  
+  .reviews li {
     font-size: x-large;
     padding: .5rem 0 .5rem 0;
-}
-/*End of body styles*/
-
-/*Footer style*/
-footer {
+  }
+  /*End of body styles*/
+  
+  /*Footer style*/
+  footer {
     padding: 1rem;
-}
-/*End of footer style*/
-
-/*Responsive*/
-@media only screen and (max-width: 800px) {
+  }
+  /*End of footer style*/
+  
+  /*Responsive*/
+  @media only screen and (max-width: 800px) {
     h1 {
-    font-size: larger;
+      font-size: larger;
     }
-
+  
     #top-header {
-    padding: 0.5rem;
+      padding: 0.5rem;
     }
-
+  
     #tools a {
-    font-size: small;
+      font-size: small;
     }
-
+  
     main {
-    padding: 0.5rem;
+      padding: 0.5rem;
     }
-
+  
     .siteName img {
-    width: 50px;
-    height: 50px;
+      width: 50px;
+      height: 50px;
     }
-
+  
     body {
-    background-image: none;
-    margin: 0;
+      background-image: none;
+      margin: 0;
     }
-
+  
     #wrapper {
-    margin: 0%;
-    padding: 0;
-    border: none;
+      margin: 0%;
+      padding: 0;
+      border: none;
     }
-
+  
     .carimg {
-    padding: 0;
+      padding: 0;
     }
-
+  
     .owntoday {
-    font-size: small;
-    width: 60%;
-    padding: 0.5rem;
-    margin: auto;
-    margin-left: 0;
+      font-size: small;
+      width: 60%;
+      padding: 0.5rem;
+      margin: auto;
+      margin-left: 0;
     }
-
+  
     .owntoday img {
-    width: 100%;
+      width: 100%;
     }
-
+  
     .upgradesAndReviews  {
-    flex-direction: column;
-    gap: 0;
-    padding-top: 1rem;
+      flex-direction: column;
+      gap: 0;
+      padding-top: 1rem;
     }
-
+  
     .upgradesAndReviews h2 {
-    font-size: large;
+      font-size: large;
     }
-
+  
     .reviews {
-    padding-left: 20px;
+      padding-left: 20px;
     }
-
+  
     .reviews li {
-    font-size: medium;
-    padding: 0;
+      font-size: medium;
+      padding: 0;
     }
-
+  
     .upgrades {
-    grid-template-columns: repeat(2, 9rem);
-    grid-template-rows: repeat(2, 9rem);
-    width: max-content;
-    margin: auto;
+      grid-template-columns: repeat(2, 9rem);
+      grid-template-rows: repeat(2, 9rem);
+      width: max-content;
+      margin: auto;
     }
-}
+  }
