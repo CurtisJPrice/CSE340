@@ -1,52 +1,47 @@
--- 2.and 3. and 4 test select with classification table 
-SELECT * 
-FROM classification
-WHERE classification_id = 2;
+--1. Insert record to account table
+INSERT INTO public.account (
+    account_firstname,
+    account_lastname,
+    account_email,
+    account_password,
+)
+VALUES (
+    'Tony',
+    'Stark',
+    'tony@starkent.com',
+    'Iam1ronM@n'
+);
 
----test update with bclassification table 
-UPDATE classification
-SET classification_name = 'custom'
-WHERE classification_id = 1;
-
-
----test delete with classification table 
-DELETE FROM classification
-WHERE classification_id = 6;
-
----test ensert with classification table
-
-INSERT INTO classification (classification_name)
-VALUES ('Economy');
-
-
---- insert the tony account
-
-INSERT INTO account (account_firstname, account_lastname, account_email, account_password)
-VALUES ('Tony', 'Stark', 'tony@starkent.com', 'Iam1ronM@n');
-
---update 
-UPDATE account
+-- 2.Modify Tony Stark record to type = Admin
+UPDATE public.account
 SET account_type = 'Admin'
-WHERE account_email = 'tony@starkent.com';
+WHERE account_id = 1;
 
---delete 
-DELETE FROM account
-WHERE account_email = 'tony@starkent.com';
+-- 3.Update description for inventory record for GM Hummer vehicle - id=10
+UPDATE public.inventory
+SET inv_description = REPLACE(inv_description, 'the small interiors', 'a huge interior ')
+WHERE inv_id = 10;
 
--- 4. update invetory GM hummer
 
-UPDATE inventory
-SET inv_description = REPLACE(inv_description, ' the small interiors', ' a huge interior')
-WHERE inv_model = 'Hummer';
+-- 4.Update inventory description from the GM Hummer
+UPDATE public.inventory
+SET inv_description = REPLACE (inv_description, 'the small interiors', 'a huge interior ')
+WHERE inv_id = 10;
 
---- 5.select from inentory and classification 
-SELECT i.inv_make, i.inv_model, c.classification_name
-FROM inventory i
-INNER JOIN classification c ON i.classification_id = c.classification_id
-WHERE c.classification_name = 'Sport';
+-- 5.Inner Join to select make and model from inv.table and classification_name from clas.table where category= Sport
+SELECT 
+SELECT 
+	inventory.inv_make as make,
+	inventory.inv_model as model,
+	classification.classification_name as classification
+FROM public.inventory
+	INNER JOIN public.classification
+	ON inventory.classification_id = classification.classification_id
+WHERE classification.classification_name = 'Sport';
 
---6 update the invetory path
-UPDATE inventory
-SET inv_image = REPLACE(inv_image, '/images/', '/images/vehicles/'),
-    inv_thumbnail = REPLACE(inv_thumbnail, '/images/', '/images/vehicles/');
+
+--6. Update inventory table inv_image and inv_thumbnail columns from: /images to: /images/vehicles
+UPDATE public.inventory
+SET inv_image = REPLACE (inv_image, '/images/', '/images/vehicles/'),
+	inv_thumbnail = REPLACE (inv_thumbnail, '/images/', '/images/vehicles/');
 
