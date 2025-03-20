@@ -6,10 +6,13 @@
  * Require Statements
  *************************/
 const express = require("express")
-const expressLayouts = require("express-ejs-layouts")
 const env = require("dotenv").config()
 const app = express()
 const static = require("./routes/static")
+const expressLayouts = require('express-ejs-layouts')
+const baseCtrl = require('./controllers/baseCtrl')
+const inventoryRoute = require('./routes/inventoryRoute')
+const utilities = require('./utilities/')
 
 /* ***********************
  * View Engine and Templates
@@ -22,11 +25,26 @@ app.set("layout", "./layouts/layout") // not at views root
  * Routes
  *************************/
 app.use(static)
-// Index route
-app.get("/", function(req, res){
-res.render("index", {title: "Home"})
+// Index Route
+app.get('/', baseCtrl.buildHOME)
+//inventory routes
+app.use('/inv', inventoryRoute)
+// 404 route
+app.use(async (req, res, next) => {
+next({status: 404, message: 'Sorry the page is missing or lost.'});
 })
 
+
+// express error handler goes after all middleware
+app.use(async (err, req, res, next) => {
+let nav = await utilities.getNav();
+console.error(`Error at: "${req.originalURL}": ${err.message}`);
+res.render('errors/error', {
+    title: err.status || 'Server Error',
+    message: err.message,
+    nav
+});
+})
 /* ***********************
  * Local Server Information
  * Values from .env (environment) file
