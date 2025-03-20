@@ -1,37 +1,31 @@
-const pool = require('../database/');
+const pool = require("../database/")
 
-
-// db query to get all classification data
-async function getClassifications() {
-    return await pool.query('SELECT * FROM public.classification ORDER BY classification_name');
+/* ***************************
+ *  Get all classification data
+ * ************************** */
+async function getClassifications(){
+  return await pool.query("SELECT * FROM public.classification ORDER BY classification_name")
 }
 
-// db query to get all inventory items and classification name by id
+/* ***************************
+ *  Get all inventory items and classification_name by classification_id
+ * ************************** */
 async function getInventoryByClassificationId(classification_id) {
-    try {
-        const data = await pool.query(
-            `SELECT * FROM public.inventory AS inv
-            JOIN public.classification AS clas
-            ON inv.classification_id = clas.classification_id
-            WHERE inv.classification_id = $1`, [classification_id]
-        )
-        return data.rows;
-    } catch (error) {
-        console.error('getclassificationsbyid error' + error)
-    }
-}
-
-// db query for inv item details
-async function getDetailByInvId(inv_id) {
-    try {
-        const data = await pool.query(
-            `SELECT * FROM public.inventory WHERE public.inventory.inv_id = $1`, [inv_id]
-        );
-        return data.rows;
-    } catch (error) {
-        console.error('getdetailsbyid error' + error)
-    }
+  try {
+    const data = await pool.query(
+      `SELECT * FROM public.inventory AS i 
+      JOIN public.classification AS c 
+      ON i.classification_id = c.classification_id 
+      WHERE i.classification_id = $1`,
+      [classification_id]
+    )
+    return data.rows
+  } catch (error) {
+    console.error("getclassificationsbyid error " + error)
+  }
 }
 
 
-module.exports = {getClassifications, getInventoryByClassificationId, getDetailByInvId};
+
+
+module.exports = {getClassifications, getInventoryByClassificationId};
