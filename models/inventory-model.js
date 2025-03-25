@@ -1,22 +1,76 @@
-const pool = require('../database');
+// models/inventory-model.js
+const pool = require("../database/")
 
-const getClassifications = async () => {
-  return await pool.query('SELECT * FROM classification ORDER BY clas_name');
-};
-
-const getInventoryByClassificationId = async (clasId) => {
+/* ***************************
+ *  Get all classifications
+ * ************************** */
+async function getClassifications() {
   try {
-    const { rows } = await pool.query(
-      `SELECT * FROM inventory AS i JOIN classification AS c ON i.clas_id = c.clas_id WHERE i.clas_id = $1`,
-      [clasId]
-    );
-    return rows;
+    const data = await pool.query(
+      "SELECT * FROM public.classification ORDER BY classification_name"
+    )
+    return data
   } catch (error) {
-    console.log('getInventoryByClassificationId error', error);
+    console.error("getClassifications error " + error)
+    throw error
   }
-};
+}
+
+/* ***************************
+ *  Get all inventory items and classification_name by classification_id
+ * ************************** */
+async function getInventoryByClassificationId(classification_id) {
+  try {
+    const data = await pool.query(
+      `SELECT * FROM public.inventory AS i 
+      JOIN public.classification AS c 
+      ON i.classification_id = c.classification_id 
+      WHERE i.classification_id = $1`,
+      [classification_id]
+    )
+    return data.rows
+  } catch (error) {
+    console.error("getInventoryByClassificationId error " + error)
+    throw error
+  }
+}
+
+/* ***************************
+ *  Get classification name by classification_id
+ * ************************** */
+async function getClassificationNameById(classification_id) {
+  try {
+    const data = await pool.query(
+      "SELECT classification_name FROM public.classification WHERE classification_id = $1",
+      [classification_id]
+    )
+    return data.rows[0].classification_name
+  } catch (error) {
+    console.error("getClassificationNameById error " + error)
+    throw error
+  }
+}
+
+/* ***************************
+ *  Get inventory item by inventory_id
+ * ************************** */
+async function getInventoryItemById(inventory_id) {
+  try {
+    const data = await pool.query(
+      `SELECT * FROM public.inventory 
+      WHERE inv_id = $1`,
+      [inventory_id]
+    )
+    return data.rows[0]
+  } catch (error) {
+    console.error("getInventoryItemById error " + error)
+    throw error
+  }
+}
 
 module.exports = {
   getClassifications,
   getInventoryByClassificationId,
-};
+  getClassificationNameById,
+  getInventoryItemById,
+}
