@@ -1,12 +1,22 @@
-<%- include('../partials/head') %>
-<%- include('../partials/header') %>
-<%- include('../partials/navigation') %>
+<!-- views/errors/error.ejs -->
 
-<div class="container error-container">
-  <h1><%= title %></h1>
-  <p class="error-message"><%= message %></p>
-  <img src="/images/error.jpg" alt="Error" class="error-image">
-  <a href="/" class="return-home">Return to Home</a>
-</div>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><%= title %></title>
+</head>
+<body>
+    <header>
+    </header>
 
-<%- include('../partials/footer') %>
+    <main>
+        <h1><%= title %></h1>
+        <p><%= message %></p>
+    </main>
+
+    <footer>
+    </footer>
+</body>
+</html>

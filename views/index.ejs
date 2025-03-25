@@ -1,34 +1,70 @@
-<section id="hero-section">
-    <div class="hero">
-      <h1>Welcome to CSE Motors!</h1>
-      <picture>
-        <source
-          media="(min-width: 500px)"
-          srcset="/images/vehicles/delorean.jpg"
-        />
-        <img
-          src="/images/vehicles/delorean-tn.jpg"
-          alt="delorean"
-          width="500"
-          height="300"/>
-      </picture>
-      <div id="hero-card">
-        <h2>DMC <span class="current-car"></span></h2>
-        <ul id="hero-features"></ul>
-        <img
-          src="/images/site/own_today.png"
-          alt="own today button"
-  width="150"
-          height="40"
-        />
-      </div>
+<!-- views/index.ejs -->
+
+<!DOCTYPE html>
+<html lang="en">
+  <%- include('./layouts/partials/head') %>
+
+  <body>
+    <div id="wrapper">
+      <%- include('./layouts/partials/header') %> <%-
+      include('./layouts/partials/navigation') %>
+      <main>
+        <h1>Welcome to CSE Motors</h1>
+
+
+        <section class="car-section">
+          <div class="dmc-delorean">
+            <h3>DMC DELOREAN</h3>
+            <b>3 cup holders</b>
+            <b>superman doors</b>
+            <b>fuzzy dice</b>
+            <button class="dmc-delorean-btn">Own Today</button>
+          </div>
+        </section>
+        <hr />
+
+        <section class="delorean-ads">
+          <div class="delorean-upgrades">
+            <h1>Delorean Upgrades</h1>
+            <div class="delorean-row">
+              <div class="upgrade-item">
+                <div class="upgrade-item-img1"></div>
+                <a href="#">Flux Capacitor</a>
+              </div>
+
+              <div class="upgrade-item">
+                <div class="upgrade-item-img2"></div>
+                <a href="#">Flame Decals</a>
+              </div>
+            </div>
+
+            <div class="delorean-row">
+              <div class="upgrade-item">
+                <div class="upgrade-item-img3"></div>
+                <a href="#">Bumper Stickers</a>
+              </div>
+              <div class="upgrade-item">
+                <div class="upgrade-item-img4"></div>
+                <a href="#">Hub Cap</a>
+              </div>
+            </div>
+          </div>
+
+          <div class="delorean-reviews">
+            <div>
+              <h1>DMC Delorean Reviews</h1>
+              <ul>
+                <li>"So fast it's almost like traveling in time." (4/5)</li>
+                <li>"Coolest ride on the road." (4/5)</li>
+                <li>"I'm feeling McFly!" (5/5)</li>
+                <li>"The most futuristic ride of our day." (4.5/5)</li>
+                <li>"80's livin and I love it!" (5/5)</li>
+              </ul>
+            </div>
+          </div>
+        </section>
+      </main>
+      <%- include('./layouts/partials/footer') %>
     </div>
-  </section>
-  <section id="reviews-section">
-    <h2>DMC <span class="current-car"></span> Reviews</h2>
-    <ul id="reviews-container"></ul>
-  </section>
-  <section id="upgrades-section">
-    <h2><span class="current-car"></span> Upgrades</h2>
-    <div id="upgrades-container"></div>
-  </section>
+  </body>
+</html>

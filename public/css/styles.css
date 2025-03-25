@@ -1,256 +1,308 @@
-/******* Change Box Model ***************/
+/* public/css/styles.css */
 *,
 *:before,
 *:after {
-  margin: 0;
-  padding: 0;
   box-sizing: border-box;
 }
 
-nav ul,
-#hero-features {
-  list-style: none;
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  background: url("../images/site/checkerboard.jpg");
 }
 
-section {
-  padding: 1rem;
-}
-
-a {
-  text-decoration: none;
-  color: black;
-}
-
-.site-name {
-  font-size: 2rem;
-}
-
-#top-header {
+#wrapper {
+  max-width: 1200px;
+  margin: 0 auto;
+  background-color: #fff;
+  min-height: 100vh;
   display: flex;
-  flex-direction: row;
-  padding: 2rem;
-  justify-content: space-between;
-  align-items: center;
+  flex-direction: column;
+}
+h1{
+  padding: 0;
+  margin: 0;
 }
 
 nav {
-  background-color: black;
-}
-
-nav a {
-  color: whitesmoke;
+  background-color: #0077cc;
 }
 
 nav ul {
   display: flex;
-  flex-direction: row;
-}
-
-nav ul li {
-  text-align: center;
-  flex-grow: 1;
-  display: flex;
-}
-
-nav ul li a {
-  padding: 0.7rem;
-  text-align: center;
-  flex-grow: 1;
-}
-
-nav ul li a:hover {
-  background-color: rgb(64, 86, 182);
-  color: black;
-}
-
-.hero {
-  display: grid;
-  grid-template-columns: 1fr;
-}
-
-.hero img {
-  width: 100%;
-  height: auto;
-}
-
-#hero-card {
-  background-color: rgba(255, 255, 255, 0.8);
-  width: fit-content;
-  height: fit-content;
-  padding: 0.5rem;
-  border-radius: 5px;
-  box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.8);
-  margin: 0 auto;
-  align-self: center;
-}
-
-#hero-card img {
-  border-color: transparent;
-  border-radius: 5px;
-  box-shadow: 3px 3px 3px rgba(0, 0, 0, 0.8);
-  width: 60%;
-  height: auto;
-}
-
-#hero-card ul {
-  margin: 0.5rem 0;
-}
-
-#hero-card h2 {
-  text-align: center;
-}
-
-#hero-card,
-.hero picture {
-  grid-row: 2/3;
-  grid-column: 1/2;
-}
-
-/* Reviews */
-
-#reviews-section {
-  padding: 1rem 2rem;
-}
-
-#reviews-section ul {
-  margin-top: 1rem;
-}
-
-#reviews-section ul li {
-  margin-top: 1rem;
-  margin-left: 1rem;
-  font-size: 1.5rem;
-}
-
-/* Upgrades */
-
-#upgrades-section #upgrades-container {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  margin-top: 1rem;
-}
-
-#upgrades-container .card {
-  border: 1px solid rgb(211, 211, 211);
-  margin: 0.5rem;
-  padding: 1rem;
-  border-radius: 5px;
-  box-shadow: 3px 3px 3px rgba(0, 0, 0, 0.8);
-  cursor: pointer;
-}
-
-#upgrades-container .card img {
-  width: 80px;
-  height: auto;
-}
-
-#upgrades-container figure {
-  display: flex;
-  flex-direction: column;
+  justify-content: space-around;
   align-items: center;
-  justify-content: center;
+  padding: 0.5rem;
+  list-style: none;
 }
 
-/* Vehicle Detail View Styles */
-.vehicle-detail-container {
+nav li {
+  color: #fff;
+  cursor: pointer;
+  transition: color 0.3s ease;
+}
+
+nav li:hover {
+  color: #ffcc00;
+}
+
+header {
+  background-color: #333;
+  color: #fff;
   padding: 1rem;
-}
-
-.vehicle-detail {
-  display: flex;
-  flex-direction: column;
-  margin-top: 1rem;
-}
-
-.vehicle-image img {
-  width: 100%;
-  height: auto;
-  max-width: 100%;
-}
-
-.vehicle-info {
-  padding: 1rem 0;
-}
-
-.vehicle-specs {
-  margin: 1rem 0;
-}
-
-.vehicle-specs p {
-  margin: 0.5rem 0;
-  font-size: 1.1rem;
-}
-
-.vehicle-specs p span {
-  font-weight: bold;
-}
-
-.price {
-  font-size: 1.4rem !important;
-  color: #004d40;
-  font-weight: bold;
-}
-
-.vehicle-description {
-  margin-top: 1.5rem;
-}
-
-/* Error Page Styles */
-.error-container {
   text-align: center;
-  padding: 2rem 1rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
-.error-message {
-  font-size: 1.2rem;
-  margin: 1rem 0;
-}
-
-.error-image {
-  max-width: 100%;
-  height: auto;
-  margin: 1rem 0;
-}
-
-.return-home {
-  display: inline-block;
-  margin-top: 1rem;
-  padding: 0.5rem 1rem;
-  background-color: #004d40;
-  color: white;
+header .siteName,
+.header a {
+  color: #fff;
   text-decoration: none;
-  border-radius: 4px;
+  font-weight: bold;
+  font-size: 20px;
 }
 
-/* Footer Error Link */
-.error-link {
-  display: block;
-  margin-top: 0.5rem;
-  font-size: 0.9rem;
+.header a:hover {
+  text-decoration: underline;
 }
 
-/* Media query for large screens */
-@media screen and (min-width: 768px) {
-  .vehicle-detail {
-    flex-direction: row;
-    gap: 2rem;
-  }
-
-  .vehicle-image {
-    flex: 1;
-  }
-
-  .vehicle-info {
-    flex: 1;
-    padding: 0;
-  }
+#tools a {
+  color: #fff;
+  text-decoration: none;
 }
 
-/* Footer */
+#tools a:hover {
+  text-decoration: underline;
+}
+
+main {
+  flex-grow: 1;
+  padding: 0.5rem 2rem;
+}
 
 footer {
-  background-color: black;
-  color: whitesmoke;
-  padding: 1rem;
+  background-color: #333;
+  color: #fff;
   text-align: center;
+  padding: 0.5rem;
+  /* position: fixed; */
+  bottom: 0;
+  width: 100%;
+}
+
+.copyright {
+  font-size: 0.8rem;
+}
+
+.dmc-delorean {
+  background-color: #afafaf45;
+  display: inline-grid;
+  padding: 10px;
+  color: #003e3f;
+  font-size: large;
+  margin-left: 600px;
+}
+
+.dmc-delorean-btn{
+  background-color: aquamarine;
+  border: none;
+  padding: 2px;
+  margin-top: 10px;
+}
+
+.car-section {
+  padding: 40px;
+  background: url("../images/vehicles/delorean.jpg"); 
+  background-size: contain;
+  background-repeat: no-repeat;
+}
+
+.delorean-ads{
+  display: flex;
+  justify-content: space-around;
+}
+
+.delorean-row{
+  display: flex;
+}
+
+.delorean-upgrades {
+  /* display: flex; */
+  flex-wrap: wrap;
+  gap: 20px;
+  text-align: center;
+}
+
+.upgrade-item-img1 {
+  text-align: center;
+  background: url("../images/upgrades/flux-cap.png");
+  background-repeat: no-repeat;
+  background-size: 100px;
+  padding: 50px;
+  margin: 10px 0;
+  /* background-color: #0077cc; */
+}
+
+.upgrade-item-img2 {
+  text-align: center;
+  background: url("../images/upgrades/flame.jpg");
+  background-repeat: no-repeat;
+  background-size: 100px;
+  padding: 50px;
+  margin: 10px 0;
+  /* background-color: #0077cc; */
+}
+
+.upgrade-item-img3 {
+  text-align: center;
+  background: url("../images/upgrades/bumper_sticker.jpg");
+  background-repeat: no-repeat;
+  background-size: 100px;
+  padding: 50px;
+  margin: 10px 0;
+  /* background-color: #0077cc; */
+}
+
+.upgrade-item-img4 {
+  text-align: center;
+  background: url("../images/upgrades/hub-cap.jpg");
+  background-repeat: no-repeat;
+  background-size: 100px;
+  padding: 50px;
+  margin: 10px 0;
+  /* background-color: #0077cc; */
+}
+
+.upgrade-item {
+  /* background-color: #9ca1a6; */
+  padding: 5px 20px;
+  margin: 10px;
+}
+
+.delorean-reviews {
+  margin-top: 20px;
+}
+
+.delorean-reviews ul {
+  list-style: none;
+  padding: 0;
+}
+
+.delorean-reviews li {
+  margin-bottom: 25px;
+  padding-left: 20px;
+  position: relative;
+  font-size: 25px;
+}
+
+.delorean-reviews li:before {
+  content: "•";
+  color: #0077cc;
+  font-size: 18px;
+  position: absolute;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  margin-right: 10px;
+}
+
+@media screen and (max-width: 820px) {
+  nav ul {
+    flex-direction: row;
+    align-items: stretch;
+  }
+
+  nav li {
+    margin: 5px 0;
+  }
+
+  header {
+    flex-direction: row;
+  }
+
+  header .siteName,
+  .header a {
+    font-size: 18px;
+    margin-bottom: 10px;
+  }
+
+  #tools a {
+    margin-top: 10px;
+  }
+
+  main {
+    padding: 1rem;
+  }
+
+  .dmc-delorean {
+    margin-left: 0;
+  }
+
+  .delorean-ads {
+    flex-direction: column;
+  }
+
+  .delorean-row{
+    display: flex;
+    justify-content: space-around;
+  }
+  
+  .delorean-upgrades {
+    flex-wrap: wrap;
+    gap: 20px;
+    text-align: center;
+  }
+  
+  .upgrade-item-img1 {
+    text-align: center;
+    background: url("../images/upgrades/flux-cap.png");
+    background-repeat: no-repeat;
+    background-size: 150px;
+    padding: 75px;
+    margin: 10px 0;
+    /* background-color: #0077cc; */
+  }
+
+  .upgrade-item-img2 {
+    text-align: center;
+    background: url("../images/upgrades/flame.jpg");
+    background-repeat: no-repeat;
+    background-size: 150px;
+    padding: 75px;
+    margin: 10px 0;
+    /* background-color: #0077cc; */
+  }
+
+  .upgrade-item-img3 {
+    text-align: center;
+    background: url("../images/upgrades/bumper_sticker.jpg");
+    background-repeat: no-repeat;
+    background-size: 150px;
+    padding: 75px;
+    margin: 10px 0;
+    /* background-color: #0077cc; */
+  }
+
+  .upgrade-item-img4 {
+    text-align: center;
+    background: url("../images/upgrades/hub-cap.jpg");
+    background-repeat: no-repeat;
+    background-size: 150px;
+    padding: 75px;
+    margin: 10px 0;
+    /* background-color: #0077cc; */
+  }
+  
+  .upgrade-item {
+    /* background-color: #9ca1a6; */
+    padding: 5px 20px;
+    margin: 10px;
+  }
+  
+  .upgrade-item {
+    margin: 10px 0;
+  }
 }

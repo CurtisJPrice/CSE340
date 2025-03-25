@@ -1,14 +1,17 @@
+// utilities/index.js
+
 const invModel = require("../models/inventory-model")
+const Util = {}
 
 /* ************************
- * Constructs the nav HTML
+ * Constructs the nav HTML unordered list
  ************************** */
-async function getNav() {
+Util.getNav = async function (req, res, next) {
   let data = await invModel.getClassifications()
-  let list = '<ul class="navigation">'
+  let list = "<ul>"
   list += '<li><a href="/" title="Home page">Home</a></li>'
   data.rows.forEach((row) => {
-    list += '<li>'
+    list += "<li>"
     list +=
       '<a href="/inv/type/' +
       row.classification_id +
@@ -16,102 +19,89 @@ async function getNav() {
       row.classification_name +
       ' vehicles">' +
       row.classification_name +
-      '</a>'
-    list += '</li>'
+      "</a>"
+    list += "</li>"
   })
-  list += '</ul>'
+  list += "</ul>"
   return list
 }
 
 /* **************************************
 * Build the classification view HTML
 * ************************************ */
-async function buildClassificationGrid(data) {
+Util.buildClassificationGrid = async function(data){
   let grid
-  if (data.length > 0) {
+  if(data.length > 0){
     grid = '<ul id="inv-display">'
     data.forEach(vehicle => { 
       grid += '<li>'
-      grid += '<a href="/inv/detail/' + vehicle.inv_id 
-        + '" title="View ' + vehicle.inv_make + ' ' + vehicle.inv_model 
-        + ' details"><img src="' + vehicle.inv_thumbnail 
-        + '" alt="Image of ' + vehicle.inv_make + ' ' + vehicle.inv_model 
-        + ' on CSE Motors"></a>'
+      grid +=  '<a href="../../inv/detail/'+ vehicle.inv_id 
+      + '" title="View ' + vehicle.inv_make + ' '+ vehicle.inv_model 
+      + 'details"><img src="' + vehicle.inv_thumbnail 
+      +'" alt="Image of '+ vehicle.inv_make + ' ' + vehicle.inv_model 
+      +' on CSE Motors" /></a>'
       grid += '<div class="namePrice">'
-      grid += '<hr>'
+      grid += '<hr />'
       grid += '<h2>'
-      grid += '<a href="/inv/detail/' + vehicle.inv_id + '" title="View ' 
-        + vehicle.inv_make + ' ' + vehicle.inv_model + ' details">' 
-        + vehicle.inv_make + ' ' + vehicle.inv_model + '</a>'
+      grid += '<a href="../../inv/detail/' + vehicle.inv_id +'" title="View ' 
+      + vehicle.inv_make + ' ' + vehicle.inv_model + ' details">' 
+      + vehicle.inv_make + ' ' + vehicle.inv_model + '</a>'
       grid += '</h2>'
-      grid += '<span>$' + new Intl.NumberFormat('en-US').format(vehicle.inv_price) + '</span>'
+      grid += '<span>$' 
+      + new Intl.NumberFormat('en-US').format(vehicle.inv_price) + '</span>'
       grid += '</div>'
       grid += '</li>'
     })
     grid += '</ul>'
   } else { 
-    grid = '<p class="notice">Sorry, no matching vehicles could be found.</p>'
+    grid += '<p class="notice">Sorry, no matching vehicles could be found.</p>'
   }
   return grid
 }
 
-/* **************************************
-* Build the vehicle detail view HTML
-* ************************************ */
-async function buildVehicleDetailHtml(vehicle) {
-  if (!vehicle) {
-    return '<p class="notice">Vehicle not found.</p>'
-  }
+
+// Custom function to wrap vehicle information in HTML
+Util.wrapInHTML = function (vehicleData) {
+  const {
+    inv_make,
+    inv_model,
+    inv_year,
+    inv_price,
+    inv_miles,
+    inv_image,
+  } = vehicleData;
 
   const formattedPrice = new Intl.NumberFormat('en-US', {
     style: 'currency',
-    currency: 'USD'
-  }).format(vehicle.inv_price)
+    currency: 'USD',
+  }).format(inv_price);
 
-  const formattedMiles = new Intl.NumberFormat('en-US').format(vehicle.inv_miles)
+  const formattedMileage = new Intl.NumberFormat().format(inv_miles);
 
-  let html = `
-    <div class="vehicle-detail">
-      <section class="vehicle-image">
-        <img src="${vehicle.inv_image}" alt="Image of ${vehicle.inv_make} ${vehicle.inv_model}">
-      </section>
-      
-      <section class="vehicle-info">
-        <h2>${vehicle.inv_make} ${vehicle.inv_model} Details</h2>
-        
-        <div class="vehicle-specs">
-          <p class="price"><span>Price:</span> ${formattedPrice}</p>
-          <p><span>Year:</span> ${vehicle.inv_year}</p>
-          <p><span>Make:</span> ${vehicle.inv_make}</p>
-          <p><span>Model:</span> ${vehicle.inv_model}</p>
-          <p><span>Mileage:</span> ${formattedMiles}</p>
-          <p><span>Color:</span> ${vehicle.inv_color}</p>
-        </div>
-        
-        <div class="vehicle-description">
-          <h3>Description</h3>
-          <p>${vehicle.inv_description}</p>
-        </div>
-      </section>
+  // HTML structure
+  const html = `
+    <div class="vehicle-details">
+      <h1>${inv_make} ${inv_model}</h1>
+      <img src="${inv_image}" alt="${inv_make} ${inv_model} Image" />
+
+      <div class="details">
+        <p><strong>Year:</strong> ${inv_year}</p>
+        <p><strong>Price:</strong> ${formattedPrice}</p>
+        <p><strong>Mileage:</strong> ${formattedMileage}</p>
+      </div>
     </div>
-  `
-  return html
-}
+  `;
+
+  return html;
+};
+
+
 
 /* ****************************************
  * Middleware For Handling Errors
  * Wrap other function in this for 
  * General Error Handling
  **************************************** */
-function handleErrors(fn) {
-  return function (req, res, next) {
-    Promise.resolve(fn(req, res, next)).catch(next)
-  }
-}
+Util.handleErrors = fn => (req, res, next) => Promise.resolve(fn(req, res, next)).catch(next)
 
-module.exports = {
-  getNav,
-  buildClassificationGrid,
-  buildVehicleDetailHtml,
-  handleErrors,
-}
+module.exports = Util

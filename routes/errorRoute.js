@@ -1,11 +1,11 @@
-// Needed Resources 
-const express = require("express")
-const router = new express.Router() 
-const errorController = require("../controllers/errorController")
-const utilities = require("../utilities/")
+// errorRoute.js
 
-// Route that generates an intentional 500 error
-router.get("/trigger-error", utilities.handleErrors(errorController.triggerError))
+const express = require('express');
+const router = new express.Router();
 
-// Export Router
-module.exports = router
+router.get('/trigger-error', (req, res, next) => {
+  // Intentional error to trigger a 500-type error
+  throw new Error('Intentional error for testing 500-type error');
+});
+
+module.exports = router;
