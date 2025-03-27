@@ -1,13 +1,8 @@
+<%# If structure to determine the title %>
 <% if (title) { %>
-    <h1><%= title %></h1>
-    <% } else {
-        res.redirect('/')
-    } %>
+    <h1 class="detailsTitle"><%= title %></h1>
+    <% } else { res.redirect('/') } %>
     
-    
-    <!-- message--> 
     <%# messages() %>
     
-    
-    <!-- inventory grid--> 
-    <%- details %>
+    <%- view  %>
