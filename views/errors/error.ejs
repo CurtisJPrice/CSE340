@@ -1,15 +1,5 @@
-<!-- content heading--> 
 <% if (title) { %>
-    <h1><%= title %></h1>
-    <% } else {
-        res.redirect('/')
-    } %>
-    
-    
-    <!-- message--> 
-<div id="error-msg">
-    <h2><%= message %></h2>
-</div>
-    
-    
-    
+<h1><%= title %></h1>
+<% } else { res.redirect('/') } %>
+
+<div><%- message %></div>

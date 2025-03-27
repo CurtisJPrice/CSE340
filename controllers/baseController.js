@@ -1,10 +1,10 @@
-const utilities = require("../utilities/")
-const baseController = {}
-require("dotenv").config()
+const { getNav } = require('../utilities');
 
-baseController.buildHome = async function(req, res){
-  const nav = await utilities.getNav()
-  res.render("index", {title: "Home", nav, errors: null})
-}
+const buildHome = async (req, res) => {
+  const nav = await getNav();
+  res.render('index', { title: 'Home', nav });
+};
 
-module.exports = baseController
+module.exports = {
+  buildHome,
+};

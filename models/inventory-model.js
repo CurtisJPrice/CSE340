@@ -1,41 +1,22 @@
-const pool = require("../database/")
+const pool = require('../database');
 
-/* ***************************
- *  Get all classification data
- * ************************** */
-async function getClassifications(){
-  return await pool.query("SELECT * FROM public.classification ORDER BY classification_name")
-}
+const getClassifications = async () => {
+  return await pool.query('SELECT * FROM classification ORDER BY clas_name');
+};
 
-
-/* ***************************
- *  Get all inventory items and classification_name by classification_id
- * ************************** */
-async function getInventoryByClassificationId(classification_id) {
+const getInventoryByClassificationId = async (clasId) => {
   try {
-    const data = await pool.query(
-      `SELECT * FROM public.inventory AS i 
-      JOIN public.classification AS c 
-      ON i.classification_id = c.classification_id 
-      WHERE i.classification_id = $1`,
-      [classification_id]
-    )
-    return data.rows
+    const { rows } = await pool.query(
+      `SELECT * FROM inventory AS i JOIN classification AS c ON i.clas_id = c.clas_id WHERE i.clas_id = $1`,
+      [clasId]
+    );
+    return rows;
   } catch (error) {
-    console.error("getclassificationsbyid error " + error)
+    console.log('getInventoryByClassificationId error', error);
   }
-}
+};
 
-async function getInventoryById(inventory_id){
-  try{
-    const data = await pool.query(
-      `SELECT * From public.inventory 
-      WHERE inv_id = $1`,
-      [inventory_id]
-    )
-    return data.rows
-  } catch (error) {
-    console.error("getInventoryById error " + error)
-}}
-
-module.exports = {getClassifications, getInventoryByClassificationId, getInventoryById};
+module.exports = {
+  getClassifications,
+  getInventoryByClassificationId,
+};
