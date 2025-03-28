@@ -2,13 +2,14 @@
  * This server.js file is the primary file of the 
  * application. It is used to control the project.
  *******************************************/
+
 /* ***********************
  * Require Statements
  *************************/
 const express = require("express")
 const expressLayouts = require("express-ejs-layouts")
 const bodyParser = require("body-parser")
-const env = require("dotenv").config()
+const env = require("dotenv").config()  // Loads environment variables from .env file
 const app = express()
 const static = require("./routes/static")
 const baseController = require("./controllers/baseController")
@@ -16,22 +17,22 @@ const inventoryRoute = require("./routes/inventoryRoute")
 const singleViewRoute = require("./routes/singleViewRoute")  // Ensure the new route is used
 const accountRoute = require("./routes/accountRoute")
 const utilities = require("./utilities/")  // Utility functions
-const errorRoute = require("./routes/errorRoute");
+const errorRoute = require("./routes/errorRoute")
 const session = require("express-session")
-const pool = require('./database/')
+const pool = require('./database/')  // Database connection from db.js
 
 /* ***********************
  * Middleware
- * ************************/
+ ************************/
 app.use(session({
   store: new (require('connect-pg-simple')(session))({
-    createTableIfMissing: true,
-    pool,
+    createTableIfMissing: true,  // Automatically create session table in PostgreSQL if not already present
+    pool,  // Use the pool from db.js to connect to the database
   }),
-  secret: process.env.SESSION_SECRET,
-  resave: true,
-  saveUninitialized: true,
-  name: 'sessionId',
+  secret: process.env.SESSION_SECRET,  // Ensure SESSION_SECRET is set in the environment (Render, or .env locally)
+  resave: true,  // Forces the session to be saved even if it wasn't modified
+  saveUninitialized: true,  // Save sessions that are uninitialized
+  name: 'sessionId',  // Cookie name for session ID
 }))
 
 // Express Messages Middleware
@@ -65,7 +66,7 @@ app.use("/inv", singleViewRoute)  // Add this route for vehicle details
 // Accounts Route
 app.use("/account", accountRoute)
 // Error route 
-app.use("/error", errorRoute);
+app.use("/error", errorRoute)
 // File Not Found Route - must be last route in list
 app.use(async (req, res, next) => {
   next({status: 404, message: 'Sorry, we appear to have lost that page.'})

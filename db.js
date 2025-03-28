@@ -1,13 +1,14 @@
-const { Client } = require('pg');
+// Import the Pool class from the pg module
+const { Pool } = require("pg");
 
-const client = new Client({
-user: 'your-username',
-host: 'localhost',
-database: 'your-database',
-password: 'your-password',
-port: 5432,
+// Create a new instance of Pool (database connection pool)
+const pool = new Pool({
+  // Use the environment variable DATABASE_URL to get the connection string
+  connectionString: process.env.DATABASE_URL,  // This will come from Render's environment variables
+  ssl: {
+    rejectUnauthorized: false,  // Enabling SSL to connect to PostgreSQL in cloud environments
+  },
 });
 
-client.connect();
-
-module.exports = client;
+// Export the pool instance so it can be used in other parts of your app
+module.exports = pool;
