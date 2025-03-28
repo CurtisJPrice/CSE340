@@ -11,15 +11,17 @@ require("dotenv").config();
 let pool;
 
 if (process.env.DATABASE_URL) {
-  // For production or when DATABASE_URL is set
+  // For production or when DATABASE_URL is set (e.g., Render environment)
   pool = new Pool({
     connectionString: process.env.DATABASE_URL,
-    ssl: process.env.DATABASE_SSL ? { rejectUnauthorized: false } : false,
+    ssl: {
+      rejectUnauthorized: false, // This is needed for Render’s managed PostgreSQL
+    },
   });
 } else {
   // For local development, when DATABASE_URL is not set
   pool = new Pool({
-    connectionString: 'postgres://your_username:your_password@localhost:5432/your_dbname',
+    connectionString: 'postgres://your_username:your_password@localhost:5432/your_dbname', // Make sure to update this for local development
   });
 }
 
