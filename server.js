@@ -1,3 +1,8 @@
+/* ******************************************
+ * This server.js file is the primary file of 
+ * the application. It is used to control the project.
+ *******************************************/
+
 /* ***********************
  * Require Statements
  *************************/
@@ -14,33 +19,13 @@ const accountRoute = require("./routes/accountRoute");
 const utilities = require("./utilities/");
 const errorRoute = require("./routes/errorRoute");
 const pool = require('./database/');
-const session = require('express-session');
-const RedisStore = require('connect-redis')(session);
-const redis = require('redis');
+const session = require('express-session');  // Default in-memory session store
 
 /* ***********************
- * Redis Client Setup (for session storage)
- *************************/
-const redisClient = redis.createClient({
-  host: process.env.REDIS_HOST, // Set Redis host in your .env file
-  port: process.env.REDIS_PORT, // Set Redis port (default is 6379)
-  password: process.env.REDIS_PASSWORD, // Optional, set Redis password if required
-});
-
-redisClient.on('connect', function () {
-  console.log('Connected to Redis');
-});
-
-redisClient.on('error', function (err) {
-  console.log('Redis connection error: ', err);
-});
-
-/* ***********************
- * Middleware for Redis Session Store
+ * Middleware for Session Store (using default MemoryStore)
  *************************/
 app.use(session({
-  store: new RedisStore({ client: redisClient }),  // Switch to Redis store for production
-  secret: process.env.SESSION_SECRET || 'your-strong-secret-key',  // Use a real, secure secret key
+  secret: process.env.SESSION_SECRET || 'your-strong-secret-key',  // Set your session secret here
   resave: false,
   saveUninitialized: true,
 }));
