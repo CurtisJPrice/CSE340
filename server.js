@@ -18,7 +18,7 @@ const singleViewRoute = require("./routes/singleViewRoute");
 const accountRoute = require("./routes/accountRoute");
 const utilities = require("./utilities/");
 const errorRoute = require("./routes/errorRoute");
-const pool = require('./database/');
+const pool = require('./database/'); // Import the pool from the new database configuration
 const session = require('express-session');  // Default in-memory session store
 
 /* ***********************

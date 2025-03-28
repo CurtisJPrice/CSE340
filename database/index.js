@@ -1,42 +1,24 @@
-const { Pool } = require("pg");
-require("dotenv").config();
+// database/index.js
 
-/* ***************
- * Connection Pool
- * SSL Object needed for local testing of app
- * But will cause problems in production environment
- * If - else will make determination which to use
- * *************** */
+const { Pool } = require('pg');  // PostgreSQL connection pool
+require('dotenv').config();  // Load environment variables from .env file
 
-let pool;
-
-if (process.env.DATABASE_URL) {
-  // For production or when DATABASE_URL is set (e.g., Render environment)
-  pool = new Pool({
-    connectionString: process.env.DATABASE_URL,
-    ssl: {
-      rejectUnauthorized: false, // This is needed for Render’s managed PostgreSQL
-    },
-  });
-} else {
-  // For local development, when DATABASE_URL is not set
-  pool = new Pool({
-    connectionString: 'postgres://your_username:your_password@localhost:5432/your_dbname', // Make sure to update this for local development
-  });
-}
-
-// Added for troubleshooting queries during development
-module.exports = {
-  async query(text, params) {
-    try {
-      const res = await pool.query(text, params);
-      console.log("executed query", { text });
-      return res;
-    } catch (error) {
-      console.error("error in query", { text });
-      throw error;
-    }
+// Set up the database connection pool using DATABASE_URL from .env
+const pool = new Pool({
+  connectionString: process.env.DATABASE_URL,  // Using the DATABASE_URL provided by cloud service (e.g., Render)
+  ssl: {
+    rejectUnauthorized: false,  // This is important for cloud environments like Render
   },
-};
+});
 
-module.exports.pool = pool; // Export the pool itself for general usage
+// Log when connected to the database
+pool.on('connect', () => {
+  console.log('Connected to the PostgreSQL database');
+});
+
+// Error handling for the connection pool
+pool.on('error', (err, client) => {
+  console.error('Error in database connection', err);
+});
+
+module.exports = pool;  // Export the pool to use it in other parts of the app
