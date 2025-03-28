@@ -1,9 +1,8 @@
+// 1. Import the inventory model to access getClassifications
 const invModel = require("../models/inventory-model");
 const Util = {};
 
-/* **************************************
- * Build the classification view HTML
- * ************************************ */
+// 2. Build the classification view HTML
 Util.buildClassificationGrid = async function (data) {
   let grid;
   if (data.length > 0) {
@@ -54,9 +53,7 @@ Util.buildClassificationGrid = async function (data) {
   return grid;
 };
 
-/* **************************************
- * Build the vehicle view HTML
- * ************************************ */
+// 3. Build the vehicle view HTML
 Util.buildSingleView = async function (data) {
   if (!data) {
     return "<p>Error: No se encontró el vehículo.</p>";
@@ -82,55 +79,55 @@ Util.buildSingleView = async function (data) {
   return view;
 };
 
-/* ************************
- * Constructs the nav HTML unordered list
- ************************** */
+// 4. Constructs the nav HTML unordered list
 Util.getNav = async function (req, res, next) {
-  let data = await invModel.getClassifications();
-  let list = "<ul>";
-  list += '<li><a href="/" title="Home page">Home</a></li>';
-  data.rows.forEach((row) => {
-    list += "<li>";
-    list +=
-      '<a href="/inv/type/' +
-      row.classification_id +
-      '" title="See our inventory of ' +
-      row.classification_name +
-      ' vehicles">' +
-      row.classification_name +
-      "</a>";
-    list += "</li>";
-  });
-  list += "</ul>";
-  return list;
+  try {
+    let data = await invModel.getClassifications();  // Fetch classifications
+    let list = "<ul>";
+    list += '<li><a href="/" title="Home page">Home</a></li>';
+    data.forEach((row) => {  // Loop through the data
+      list += "<li>";
+      list +=
+        '<a href="/inv/type/' +
+        row.classification_id +
+        '" title="See our inventory of ' +
+        row.classification_name +
+        ' vehicles">' +
+        row.classification_name +
+        "</a>";
+      list += "</li>";
+    });
+    list += "</ul>";
+    return list;  // Return the built list
+  } catch (error) {
+    console.error("Error in getNav:", error);  // Error handling
+    next(error);  // Pass the error to the next middleware
+  }
 };
 
-/* ****************************************
- * Middleware For Handling Errors
- * Wrap other function in this for
- * General Error Handling
- **************************************** */
+// 5. Middleware for handling errors
 Util.handleErrors = (fn) => (req, res, next) =>
   Promise.resolve(fn(req, res, next)).catch(next);
 
-// Buid selection view
+// 6. Build selection view
 Util.buildClassificationList = async function (classification_id = null) {
-  let data = await invModel.getClassifications()
+  let data = await invModel.getClassifications();
   let classificationList =
-    '<select name="classification_id" id="classificationList" required>'
-  classificationList += "<option value=''>Choose a Classification</option>"
-  data.rows.forEach((row) => {
-    classificationList += '<option value="' + row.classification_id + '"'
+    '<select name="classification_id" id="classificationList" required>';
+  classificationList += "<option value=''>Choose a Classification</option>";
+  data.forEach((row) => {
+    classificationList += '<option value="' + row.classification_id + '"';
     if (
       classification_id != null &&
       row.classification_id == classification_id
     ) {
-      classificationList += " selected "
+      classificationList += " selected ";
     }
-    classificationList += ">" + row.classification_name + "</option>"
-  })
-  classificationList += "</select>"
-  return classificationList
-}
+    classificationList += ">" + row.classification_name + "</option>";
+  });
+  classificationList += "</select>";
+  return classificationList;
+};
 
+// 7. Export the utilities
 module.exports = Util;
