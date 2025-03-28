@@ -1,0 +1,27 @@
+<%- include("../layouts/layout") %>
+
+<h1><%= title %></h1>
+
+<div class="management-actions">
+<a href="/inv/add-vehicle">Add New Vehicle</a>
+<a href="/inv/add-classification">Add New Classification</a>
+</div>
+
+<!-- Here you can list all vehicles, for example: -->
+<div class="vehicle-list">
+<!-- Loop through the vehicles (if available) -->
+<% if (vehicles && vehicles.length > 0) { %>
+    <% vehicles.forEach((vehicle) => { %>
+    <div class="vehicle-item">
+        <img src="<%= vehicle.inv_thumbnail %>" alt="<%= vehicle.inv_make %> <%= vehicle.inv_model %>" />
+        <h3><%= vehicle.inv_make %> <%= vehicle.inv_model %></h3>
+        <p><%= vehicle.inv_description %></p>
+        <p><%= vehicle.inv_price %></p>
+        <a href="/inv/edit-vehicle/<%= vehicle.inv_id %>">Edit</a> | 
+        <a href="/inv/delete-vehicle/<%= vehicle.inv_id %>">Delete</a>
+    </div>
+    <% }) %>
+<% } else { %>
+    <p>No vehicles found.</p>
+<% } %>
+</div>

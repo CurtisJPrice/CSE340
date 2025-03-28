@@ -1,0 +1,49 @@
+<%- include("../layouts/layout") %>
+
+<h1><%= title %></h1>
+
+<% if (errors) { %>
+<div class="error-messages">
+    <% errors.forEach((error) => { %>
+    <p><%= error.msg %></p>
+    <% }) %>
+</div>
+<% } %>
+
+<form action="/inv/add-vehicle" method="POST">
+<label for="classification_id">Vehicle Classification:</label>
+<select name="classification_id" required>
+    <% buildClassificationList.forEach((classification) => { %>
+    <option value="<%= classification.classification_id %>"><%= classification.classification_name %></option>
+    <% }) %>
+</select>
+
+<label for="inv_make">Make:</label>
+<input type="text" name="inv_make" required />
+
+<label for="inv_model">Model:</label>
+<input type="text" name="inv_model" required />
+
+<label for="inv_description">Description:</label>
+<textarea name="inv_description" required></textarea>
+
+<label for="inv_image">Image URL:</label>
+<input type="text" name="inv_image" />
+
+<label for="inv_thumbnail">Thumbnail URL:</label>
+<input type="text" name="inv_thumbnail" />
+
+<label for="inv_price">Price:</label>
+<input type="number" name="inv_price" required />
+
+<label for="inv_year">Year:</label>
+<input type="number" name="inv_year" required />
+
+<label for="inv_miles">Miles:</label>
+<input type="number" name="inv_miles" />
+
+<label for="inv_color">Color:</label>
+<input type="text" name="inv_color" />
+
+<button type="submit">Add Vehicle</button>
+</form>

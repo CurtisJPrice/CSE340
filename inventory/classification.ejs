@@ -1,0 +1,19 @@
+<%- include("../layouts/layout") %>
+
+<h1><%= title %></h1>
+
+<% if (grid.length > 0) { %>
+<div class="inventory-grid">
+    <% grid.forEach((vehicle) => { %>
+    <div class="vehicle-card">
+        <img src="<%= vehicle.inv_image %>" alt="<%= vehicle.inv_make %> <%= vehicle.inv_model %>" />
+        <h3><%= vehicle.inv_make %> <%= vehicle.inv_model %></h3>
+        <p><%= vehicle.inv_description %></p>
+        <p><%= vehicle.inv_price %></p>
+        <a href="/inv/type/<%= vehicle.classification_id %>">View More</a>
+    </div>
+    <% }) %>
+</div>
+<% } else { %>
+<p>No vehicles available in this classification.</p>
+<% } %>
