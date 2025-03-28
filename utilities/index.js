@@ -1,8 +1,9 @@
-// 1. Import the inventory model to access getClassifications
-const invModel = require("../models/inventory-model");
+const invModel = require("../models/inventory-model");  // Import the inventory model
 const Util = {};
 
-// 2. Build the classification view HTML
+// **************************************
+// Build the classification view HTML
+// ************************************
 Util.buildClassificationGrid = async function (data) {
   let grid;
   if (data.length > 0) {
@@ -53,7 +54,9 @@ Util.buildClassificationGrid = async function (data) {
   return grid;
 };
 
-// 3. Build the vehicle view HTML
+// **************************************
+// Build the vehicle view HTML
+// ************************************
 Util.buildSingleView = async function (data) {
   if (!data) {
     return "<p>Error: No se encontró el vehículo.</p>";
@@ -79,13 +82,15 @@ Util.buildSingleView = async function (data) {
   return view;
 };
 
-// 4. Constructs the nav HTML unordered list
+// ************************
+// Constructs the nav HTML unordered list
+// **************************
 Util.getNav = async function (req, res, next) {
   try {
-    let data = await invModel.getClassifications();  // Fetch classifications
+    let data = await invModel.getClassifications(); // Fetch classifications from the model
     let list = "<ul>";
     list += '<li><a href="/" title="Home page">Home</a></li>';
-    data.forEach((row) => {  // Loop through the data
+    data.forEach((row) => {
       list += "<li>";
       list +=
         '<a href="/inv/type/' +
@@ -98,18 +103,22 @@ Util.getNav = async function (req, res, next) {
       list += "</li>";
     });
     list += "</ul>";
-    return list;  // Return the built list
+    res.send(list);  // Send the generated list back as the response
   } catch (error) {
-    console.error("Error in getNav:", error);  // Error handling
-    next(error);  // Pass the error to the next middleware
+    console.error("Error in getNav:", error);
+    next(error); // Pass the error to the next middleware
   }
 };
 
-// 5. Middleware for handling errors
+// ****************************************
+// Middleware For Handling Errors
+// Wrap other function in this for
+// General Error Handling
+// ****************************************
 Util.handleErrors = (fn) => (req, res, next) =>
   Promise.resolve(fn(req, res, next)).catch(next);
 
-// 6. Build selection view
+// Build selection view
 Util.buildClassificationList = async function (classification_id = null) {
   let data = await invModel.getClassifications();
   let classificationList =
@@ -129,5 +138,4 @@ Util.buildClassificationList = async function (classification_id = null) {
   return classificationList;
 };
 
-// 7. Export the utilities
 module.exports = Util;
