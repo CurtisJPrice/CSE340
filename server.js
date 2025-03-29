@@ -1,22 +1,19 @@
-// server.js
-
+// server.js (or app.js)
 const express = require('express');
 const app = express();
-const inventoryRoute = require('./routes/inventoryRoute');  // Assuming your routes are in "routes/inventoryRoute.js"
-const path = require('path');
+const inventoryRoute = require('./routes/inventoryRoute');  // Your inventory routes
 
-// Middleware
+// Middleware for parsing request bodies
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-app.set('view engine', 'ejs');  // Ensure this is set to the view engine you use (e.g., EJS, Pug)
 
-// Serve static files if needed
-app.use(express.static(path.join(__dirname, 'public')));
+// Set your view engine (for example, EJS or Pug)
+app.set('view engine', 'ejs');  // Or 'pug', depending on what you're using
 
-// Use routes
-app.use('/inventory', inventoryRoute);  // This is where we link the inventory routes
+// Use inventory routes
+app.use('/inventory', inventoryRoute);  // Make sure this is the correct path to your inventory routes
 
-// Root route (check if this is defined)
+// Root route for testing
 app.get('/', (req, res) => {
   res.send('Welcome to the Inventory App');
 });
