@@ -52,8 +52,14 @@ app.set("layout", "./layouts/layout"); // not at views root
  *************************/
 app.use(static);
 
-// Index route (with error handling for async functions)
-app.get("/", utilities.handleErrors(baseController.buildHome));
+// Index route (ensure baseController.buildHome is an async function)
+app.get("/", async (req, res, next) => {
+  try {
+    await baseController.buildHome(req, res); // Ensure this is an async function that correctly sends a response
+  } catch (err) {
+    next(err); // Handle any errors from buildHome
+  }
+});
 
 // Inventory routes
 app.use("/inv", inventoryRoute);
