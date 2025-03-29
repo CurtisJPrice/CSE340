@@ -1,10 +1,11 @@
+// controllers/userController.js
+
 // Sample function to handle user actions
 const getUser = (req, res) => {
-    // Logic for getting user information (This is just an example)
+    // Logic for getting user information
     res.send("User info goes here");
 };
 
-  // Export the function so it can be used in routes
 module.exports = {
-    getUser,
+    getUser, // Export the getUser function to be used in routes
 };
