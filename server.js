@@ -22,12 +22,12 @@ const session = require("express-session");
 /* ***********************
  * Middleware
  ************************/
-app.use(session({
-  secret: process.env.SESSION_SECRET,
-  resave: true,
-  saveUninitialized: true,
-  name: 'sessionId',
-}));
+//app.use(session({
+//  secret: process.env.SESSION_SECRET,
+//  resave: true,
+//  saveUninitialized: true,
+//  name: 'sessionId',
+//}));
 
 // Express Messages Middleware
 app.use(require('connect-flash')());
