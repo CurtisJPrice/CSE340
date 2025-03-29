@@ -1,9 +1,16 @@
-const utilities = require("../utilities/")
-const baseController = {}
+// controllers/baseController.js
 
-baseController.buildHome = async function(req, res){
-  const nav = await utilities.getNav()
-  res.render("index", {title: "Home", nav, errors: null,} )
-}
+// Simulate the base controller (used in the home page route)
+const baseController = {};
 
-module.exports = baseController
+// Simulate building the homepage
+baseController.buildHome = async (req, res, next) => {
+  const nav = await require("../utilities").getNav();  // Using utility function to simulate navigation
+  
+  res.render("home", {
+    title: "Home",
+    nav,
+  });
+};
+
+module.exports = baseController;
