@@ -40,13 +40,16 @@ app.set("layout", "./layouts/layout");
 
 // 🔹 Routes
 app.use(static);
+// Example of your index route
 app.get("/", async (req, res, next) => {
   try {
-    res.render("index", { title: "Home" });
+    let nav = await utilities.getNav(); // Assuming this function gets your navigation data
+    res.render("index", { title: "Home", nav }); // Pass 'nav' here
   } catch (err) {
     next(err);
   }
 });
+
 app.use("/inv", inventoryRoute);
 app.use("/single", singleViewRoute);  // ✅ Prevents overlap with inventoryRoute
 app.use("/account", accountRoute);
