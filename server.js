@@ -54,13 +54,15 @@ app.set("layout", "./layouts/layout"); // not at views root
 app.use(static);
 
 // Index route (ensure baseController.buildHome is an async function)
+// Index route (renders the index.ejs file)
 app.get("/", async (req, res, next) => {
   try {
-    await baseController.buildHome(req, res); // Ensure this is an async function that correctly sends a response
+    res.render("index"); // This renders the index.ejs file
   } catch (err) {
-    next(err); // Handle any errors from buildHome
+    next(err); // Handle any errors
   }
 });
+
 
 // Inventory routes
 app.use("/inv", inventoryRoute);
