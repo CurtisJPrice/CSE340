@@ -1,5 +1,5 @@
 const bcrypt = require("bcryptjs");
-const accountModel = require("../models/accountModel");
+const accountModel = require("../models/account-model");
 
 /* ***************************
  *  Show Login Page
