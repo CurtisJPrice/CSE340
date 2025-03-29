@@ -1,6 +1,7 @@
 <div>
   <h1>Welcome to CSE Motors!</h1>
-  <%- messages() %>
+  <!-- Fix here -->
+  <%- messages && messages.error ? messages.error : '' %> 
   <div class="spotcar">
     <picture>
       <source
