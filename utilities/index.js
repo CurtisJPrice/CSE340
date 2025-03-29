@@ -1,5 +1,3 @@
-// utilities/index.js
-
 // Example of handleErrors function
 async function handleErrors(fn) {
   return async (req, res, next) => {

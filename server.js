@@ -19,7 +19,7 @@ app.use(session({
   secret: process.env.SESSION_SECRET || "your_secret_key",
   resave: false,
   saveUninitialized: true,
-  cookie: { secure: false } 
+  cookie: { secure: false }
 }));
 
 // 🔹 Flash Messages Middleware
@@ -40,6 +40,7 @@ app.set("layout", "./layouts/layout");
 
 // 🔹 Routes
 app.use(static);
+
 // Example of your index route
 app.get("/", async (req, res, next) => {
   try {
@@ -64,10 +65,10 @@ app.use(async (req, res, next) => {
 app.use(async (err, req, res, next) => {
   let nav = await utilities.getNav();
   console.error(`Error at: "${req.originalUrl}": ${err.message}`);
-  
+
   const message = err.status === 404 ? err.message 
                   : "Oh no! There was a crash. Maybe try a different route?";
-  
+
   res.status(err.status || 500).render("errors/error", {
     title: err.status || "Server Error",
     message,
