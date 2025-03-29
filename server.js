@@ -22,12 +22,21 @@ const session = require("express-session");
 /* ***********************
  * Middleware
  ************************/
-//app.use(session({
-//  secret: process.env.SESSION_SECRET,
-//  resave: true,
-//  saveUninitialized: true,
-//  name: 'sessionId',
-//}));
+app.use(session({
+  secret: process.env.SESSION_SECRET || "your_secret_key", // Use .env variable or fallback
+  resave: false,
+  saveUninitialized: true,
+  cookie: { secure: false } // Set `true` if using HTTPS
+}));
+
+const flash = require("connect-flash");
+app.use(flash());
+
+// Middleware to make flash messages available in views
+app.use((req, res, next) => {
+  res.locals.messages = req.flash();
+  next();
+});
 
 // Express Messages Middleware
 app.use(require('connect-flash')());
