@@ -2,7 +2,6 @@
  * This server.js file is the primary file of the 
  * application. It is used to control the project.
  *******************************************/
-
 /* ***********************
  * Require Statements
  *************************/
@@ -22,7 +21,7 @@ const session = require("express-session");
 
 /* ***********************
  * Middleware
- * ************************/
+ ************************/
 app.use(session({
   secret: process.env.SESSION_SECRET,
   resave: true,
@@ -53,7 +52,7 @@ app.set("layout", "./layouts/layout"); // not at views root
  *************************/
 app.use(static);
 
-// Index route
+// Index route (with error handling for async functions)
 app.get("/", utilities.handleErrors(baseController.buildHome));
 
 // Inventory routes
@@ -80,7 +79,6 @@ app.use(async (req, res, next) => {
 app.use(async (err, req, res, next) => {
   let nav = await utilities.getNav();
   console.error(`Error at: "${req.originalUrl}": ${err.message}`);
-  let message;
   if (err.status == 404) {
     message = err.message;
   } else {
@@ -93,17 +91,16 @@ app.use(async (err, req, res, next) => {
   });
 });
 
-// Duplicate error handler (could be merged with above)
+// Final catch-all error handler
 app.use(async (err, req, res, next) => {
   let nav = await utilities.getNav();
   console.error(`Error at: "${req.originalUrl}": ${err.message}`);
-  let message;
   if (err.status == 500) {
     message = err.message;
   } else {
     message = 'Oh no! There was a crash. Maybe try a different route?';
   }
-  res.render("errors/error", {
+  res.render("errors/error", { 
     title: err.status || 'Server Error',
     message,
     nav

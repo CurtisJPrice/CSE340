@@ -1,16 +1,15 @@
 // controllers/baseController.js
 
-// Simulate the base controller (used in the home page route)
 const baseController = {};
 
-// Simulate building the homepage
-baseController.buildHome = async (req, res, next) => {
-  const nav = await require("../utilities").getNav();  // Using utility function to simulate navigation
-  
-  res.render("home", {
-    title: "Home",
-    nav,
-  });
+// Assuming buildHome is an async function
+baseController.buildHome = async function (req, res, next) {
+  try {
+    // Your logic here (e.g., render a view)
+    res.render("home", { title: "Home Page" });  // Replace this with actual view rendering logic
+  } catch (err) {
+    next(err);  // Pass any error to the next middleware
+  }
 };
 
 module.exports = baseController;
