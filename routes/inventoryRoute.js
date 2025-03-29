@@ -1,7 +1,6 @@
-// inventoryRoute.js
 const express = require("express");
 const router = express.Router();
-const userController = require("../controllers/userController"); // Example controller for user-related routes
+const userController = require("../controllers/userController"); // Importing userController
 
 // Route to display the "My Account" page
 router.get("/my-account", async (req, res, next) => {
@@ -34,14 +33,13 @@ router.post("/login", (req, res, next) => {
     }
 });
 
-// Add your inventory-related routes here (for example)
+// Inventory Routes (e.g., home page and adding inventory)
 router.get("/", (req, res) => {
-res.send("Inventory home page");
+    res.send("Inventory home page");
 });
 
-// More inventory-related routes...
 router.get("/add", (req, res) => {
-res.send("Add a new inventory item");
+    res.send("Add a new inventory item");
 });
 
 module.exports = router;
