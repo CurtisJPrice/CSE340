@@ -49,7 +49,6 @@ app.use(static);
 app.get("/", async (req, res, next) => {
   try {
     let nav = await utilities.getNav();
-    // Use baseController's renderPage function to render common views
     baseController.renderPage(req, res, "index", { title: "Home", nav });
   } catch (err) {
     next(err);

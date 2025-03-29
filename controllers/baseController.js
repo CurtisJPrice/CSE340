@@ -12,4 +12,8 @@ baseController.buildHome = async function (req, res, next) {
   }
 };
 
-module.exports = baseController;
+module.exports = {
+  renderPage: function (req, res, page, data) {
+    res.render(page, data); // Make sure to properly render the page
+  }
+};
