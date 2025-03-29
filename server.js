@@ -4,28 +4,33 @@ const bodyParser = require("body-parser");
 const env = require("dotenv").config();
 const session = require("express-session");
 const flash = require("connect-flash");
+const bcrypt = require("bcryptjs"); // 🔹 Line 7
+const pool = require("./database/"); // 🔹 Line 8 (Ensure database connection)
+
 
 const app = express();
 const static = require("./routes/static");
 const baseController = require("./controllers/baseController");
 const inventoryRoute = require("./routes/inventoryRoute");
-const accountRoute = require("./routes/accountRoute");
+const accountRoutes = require("./routes/accountRoute"); // 🔹 Line 15
 const singleViewRoute = require("./routes/singleViewRoute");
 const errorRoute = require("./routes/errorRoute");
 const utilities = require("./utilities/");
 
 // 🔹 Session Setup
-app.use(session({
+app.use(session({  // 🔹 Line ~18
   secret: process.env.SESSION_SECRET || "your_secret_key",
   resave: false,
-  saveUninitialized: true,
-  cookie: { secure: false }
+  saveUninitialized: false,  // ✅ Fix: Creates session only when needed
+  cookie: { secure: false, httpOnly: true } // ✅ Security improvement
 }));
 
 // 🔹 Flash Messages Middleware
-app.use(flash());
-app.use((req, res, next) => {
+app.use(flash()); // 🔹 Line 25
+
+app.use((req, res, next) => { // 🔹 Line 26
   res.locals.messages = req.flash();
+  res.locals.user = req.session.user || null; // ✅ Ensures views can access logged-in user
   next();
 });
 
@@ -53,7 +58,7 @@ app.get("/", async (req, res, next) => {
 
 app.use("/inv", inventoryRoute);
 app.use("/single", singleViewRoute);  // ✅ Prevents overlap with inventoryRoute
-app.use("/account", accountRoute);
+app.use("/account", require("./routes/accountRoutes")); // ✅ Ensure authentication routes are loaded correctly
 app.use("/error", errorRoute);
 
 // 🔹 404 Error Handler

@@ -1,0 +1,21 @@
+<!-- views/account.ejs -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><%= title %> - My Account</title>
+</head>
+<body>
+    <header>
+        <h1>Welcome, <%= user.username %>!</h1>
+        <p>Your account details:</p>
+        <ul>
+            <li>Email: <%= user.email || "N/A" %></li>
+            <li>Username: <%= user.username %></li>
+        </ul>
+        <a href="/account/logout">Log out</a>
+    </header>
+    <!-- Add more account features here as needed -->
+</body>
+</html>

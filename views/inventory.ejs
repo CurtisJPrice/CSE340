@@ -1,0 +1,27 @@
+<!-- views/inventory.ejs -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><%= title %> - Inventory</title>
+</head>
+<body>
+    <header>
+        <h1>Vehicle Inventory</h1>
+    </header>
+    <section>
+        <h2>Available Vehicles</h2>
+        <ul>
+            <% inventory.forEach(vehicle => { %>
+                <li>
+                    <h3><%= vehicle.name %></h3>
+                    <p>Price: $<%= vehicle.price %></p>
+                    <p><%= vehicle.description %></p>
+                    <img src="<%= vehicle.imageUrl %>" alt="<%= vehicle.name %>">
+                </li>
+            <% }); %>
+        </ul>
+    </section>
+</body>
+</html>
