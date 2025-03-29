@@ -24,8 +24,18 @@ async function getNav() {
   }
 }
 
+// Build the grid for classification (just a simulation for now)
+async function buildClassificationGrid(data) {
+  // This is just a mock function. Replace it with actual logic.
+  return data.map(item => ({
+    model: item.inv_make + ' ' + item.inv_model,
+    price: item.inv_price,
+    miles: item.inv_miles
+  }));
+}
+
 module.exports = {
   handleErrors,
   getNav,
-  // Other utility functions can be placed here...
+  buildClassificationGrid,
 };
