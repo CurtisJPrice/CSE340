@@ -1,4 +1,4 @@
-<h1 class="detailsTitle"><%= title || "Add Vehicle" %></h1>
+<h1 class="detailsTitle"><%= title || "Editing Vehicle" %></h1>
 
 <%- messages() %> <% if (errors) { %>
 <ul class="notice">
@@ -10,9 +10,9 @@
 
 <div class="formstyle">
   <p>All fields are required</p>
-  <form action="/inv/add-vehicle" method="post">
+  <form action="/inv/update" method="post" id="updateForm">
     <label for="classification_id">Classification</label><br />
-    <%- buildClassificationList %> <br />
+    <%- classificationSelect %> <br />
     <label for="inv_make">Make</label><br />
     <input
       type="text"
@@ -95,6 +95,15 @@
       placeholder="Blue"
       value="<%= locals.inv_color %>"
     /><br />
-    <button class="formbutton" type="submit">Add Vehicle</button>
+    <button disabled type="submit">Update Vehicle</button>
+    <input 
+      type="hidden" 
+      name="inv_id"
+      <% if(locals.inv_id) { %> 
+      value="<%= locals.inv_id %>"
+      <% } %>
+    >
   </form>
 </div>
+
+<script src="/js/inv-update.js"></script>

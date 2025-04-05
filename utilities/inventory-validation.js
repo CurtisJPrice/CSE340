@@ -1,12 +1,12 @@
 const utilities = require(".");
 const { body, validationResult } = require("express-validator");
 
-const vehicleValidate = {};
+const inventoryValidation = {};
 
 /*  **********************************
- *  New Vehicle Data Validation Rules
+ *  Update Vehicle Data Validation Rules
  * ********************************* */
-vehicleValidate.vehicleRules = () => {
+inventoryValidation.vehicleRules = () => {
   return [
     body("classification_id")
       .trim()
@@ -47,7 +47,6 @@ vehicleValidate.vehicleRules = () => {
       .trim()
       .escape()
       .notEmpty()
-      .isLength({ min: 4 })
       .withMessage("Please provide a Year for the vehicle"),
     body("inv_miles")
       .trim()
@@ -62,7 +61,7 @@ vehicleValidate.vehicleRules = () => {
   ];
 };
 
-vehicleValidate.checkVehicleData = async (req, res, next) => {
+inventoryValidation.checkUpdateData = async (req, res, next) => {
   const {
     classification_id,
     inv_make,
@@ -74,17 +73,18 @@ vehicleValidate.checkVehicleData = async (req, res, next) => {
     inv_year,
     inv_miles,
     inv_color,
+    inv_id,
   } = req.body;
   let errors = [];
   errors = validationResult(req);
   if (!errors.isEmpty()) {
     let nav = await utilities.getNav();
-    let buildClassificationList = await utilities.buildClassificationList(classification_id);
-    res.render("inventory/add-vehicle", {
+    let classificationSelect = await utilities.buildClassificationList(classification_id);
+    res.render("inventory/edit-inventory", {
       errors,
-      title: "Add Vehicle",
+      title: "Edit" + inv_make + inv_model,
       nav,
-      buildClassificationList,
+      classificationSelect,
       classification_id,
       inv_make,
       inv_model,
@@ -95,10 +95,11 @@ vehicleValidate.checkVehicleData = async (req, res, next) => {
       inv_year,
       inv_miles,
       inv_color,
+      inv_id,
     });
     return;
   }
   next();
 };
 
-module.exports = vehicleValidate;
+module.exports = inventoryValidation;
