@@ -47,7 +47,6 @@ vehicleValidate.vehicleRules = () => {
       .trim()
       .escape()
       .notEmpty()
-      .isLength({ min: 4 })
       .withMessage("Please provide a Year for the vehicle"),
     body("inv_miles")
       .trim()
