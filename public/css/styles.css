@@ -52,14 +52,27 @@ h1 {
   font-weight: bold;
 }
 
-#tools a {
+#tools .account {
   color: black;
   text-decoration: none;
   transition: transform 0.3s ease-in-out;
   display: inline-block;
 }
 
-#tools a:hover {
+#tools .accountName {
+  color: black;
+  text-decoration: none;
+}
+
+.logout {
+  color: var(--secondColor);
+  text-decoration: none;
+  transition: transform 0.3s ease-in-out;
+  display: inline-block;
+}
+
+#tools .account:hover,
+.logout:hover {
   transform: scale(1.2);
 }
 /*End of header styles*/
@@ -340,6 +353,26 @@ textarea {
 }
 /* End of flash messages styles */
 
+/* Admin Dashboard styles */
+.account-table {
+  text-align: center;
+  width: 90%;
+  border: solid 1px black;
+  margin: auto;
+}
+
+.account-table tbody td,
+.account-table thead th {
+  border: solid 1px black;
+}
+
+.select {
+  font-size: 15px;
+  padding: 0.5rem 3rem 0.5rem 3rem;
+  background-color: white;
+}
+/* End of admin Dashboard styles */
+
 /*Footer style*/
 footer {
   padding: 1rem;
@@ -429,5 +462,60 @@ footer {
 
   .formstyle {
     width: 90%;
+  }
+
+  .account-table {
+    width: 100%;
+    margin: 0;
+    border: none;
+  }
+
+  .account-table thead {
+    display: none;
+  }
+
+  .account-table tbody tr {
+    display: block;
+    border-bottom: 1px solid #ccc;
+    margin-bottom: 1rem;
+  }
+
+  .account-table tbody td {
+    display: block;
+    text-align: left;
+    padding: 0.5rem;
+    border-bottom: 1px solid #ccc;
+    position: relative;
+    width: 100%;
+    font-size: 14px;
+  }
+
+  .account-table tbody td::before {
+    content: attr(data-label);
+    font-weight: bold;
+    position: absolute;
+    left: 0;
+    top: 0;
+  }
+
+  .select {
+    font-size: 14px;
+    padding: 0.5rem 1rem;
+    width: 100%;
+  }
+
+  .formstyle {
+    padding: 1rem;
+  }
+
+  .formbutton {
+    width: 100%;
+    padding: 0.8rem;
+    margin-bottom: 1rem;
+    font-size: 16px;
+  }
+
+  #tools {
+    text-align: end;
   }
 }

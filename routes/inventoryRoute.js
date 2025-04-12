@@ -1,47 +1,92 @@
-// inventoryRoute.js
+// Needed Resources
 const express = require("express");
-const router = express.Router();
-const userController = require("../controllers/userController"); // Import the userController
+const router = new express.Router();
+const invController = require("../controllers/invController");
+const Util = require("../utilities/");
+const classificationValidate = require("../utilities/newClassification-validation");
+const vehicleValidate = require("../utilities/newVehicle-validation");
+const inventoryValidation = require("../utilities/inventory-validation");
 
-// Route to display the "My Account" page
-router.get("/my-account", async (req, res, next) => {
-    try {
-        const user = req.user || {};  // Replace with actual logic for fetching user info
-        res.render("account", { title: "My Account", user });
-    } catch (error) {
-        console.error("Error fetching account data:", error);
-        next(error); // Pass error to global error handler
-    }
-});
+// Route to build inventory by classification view
+router.get(
+  "/type/:classificationId",
+  Util.handleErrors(invController.buildByClassificationId)
+);
 
-// Use the userController function to get user info
-router.get("/user-info", userController.getUser); // Use the getUser function from userController
+// Route for build vehicle management
+router.get(
+  "/",
+  Util.checkIfAdminOrEmployee,
+  Util.handleErrors(invController.buildManagement)
+);
 
-// Route to display login page (example)
-router.get("/login", (req, res) => {
-    res.render("login", { title: "Login" }); // Ensure you have a 'login.ejs' file
-});
+// Build inventory ajax route
+router.get(
+  "/getInventory/:classification_id",
+  Util.checkIfAdminOrEmployee,
+  Util.handleErrors(invController.getInventoryJSON)
+);
 
-// Example: Add a route to handle POST login submission
-router.post("/login", (req, res, next) => {
-    // Example: Handle login (use actual authentication logic)
-    const { username, password } = req.body;
-    if (username === "admin" && password === "password") {
-        req.session.user = { username }; // Example: Set user session
-        res.redirect("/account/my-account"); // Redirect to the My Account page after login
-    } else {
-        req.flash("error", "Invalid credentials");
-        res.redirect("/account/login");
-    }
-});
+// Route to build add clasification
+router.get(
+  "/add-classification",
+  Util.checkIfAdminOrEmployee,
+  Util.handleErrors(invController.buildAddClassification)
+);
 
-// Add your inventory-related routes here (for example)
-router.get("/", (req, res) => {
-    res.send("Inventory home page");
-});
+// Route to build add view
+router.get(
+  "/add-vehicle",
+  Util.checkIfAdminOrEmployee,
+  Util.handleErrors(invController.buildAddVehicle)
+);
 
-router.get("/add", (req, res) => {
-    res.send("Add a new inventory item");
-});
+// Process the add classification attemp
+router.post(
+  "/add-classification",
+  Util.checkIfAdminOrEmployee,
+  classificationValidate.classificationRules(),
+  classificationValidate.checkClassificationData,
+  Util.handleErrors(invController.newClassification)
+);
+
+// Process the add vehicle attemp
+router.post(
+  "/add-vehicle",
+  Util.checkIfAdminOrEmployee,
+  vehicleValidate.vehicleRules(),
+  vehicleValidate.checkVehicleData,
+  Util.handleErrors(invController.newVehicle)
+);
+
+// Route to build edit view
+router.get(
+  "/edit/:inventory_id",
+  Util.checkIfAdminOrEmployee,
+  Util.handleErrors(invController.editInventoryView)
+);
+
+// Process the edit vehicle attemp
+router.post(
+  "/update/",
+  Util.checkIfAdminOrEmployee,
+  inventoryValidation.vehicleRules(),
+  inventoryValidation.checkUpdateData,
+  Util.handleErrors(invController.updateInventory)
+);
+
+// Route to get delete view
+router.get(
+  "/delete/:inventory_id",
+  Util.checkIfAdminOrEmployee,
+  Util.handleErrors(invController.deleteInventoryView)
+);
+
+// Process the delete inventory attemp
+router.post(
+  "/delete",
+  Util.checkIfAdminOrEmployee,
+  Util.handleErrors(invController.deleteInventory)
+);
 
 module.exports = router;
